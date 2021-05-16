@@ -47,7 +47,7 @@ class DatabaseHelper {
   }
 
 //insert function
- static Future<int> insert(Map<String, dynamic> row) async {
+  Future<int> insert(Map<String, dynamic> row) async {
     Database db = await instance.database;
     return db.insert(countryTable, row);
   }
