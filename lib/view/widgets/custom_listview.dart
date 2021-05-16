@@ -7,16 +7,32 @@ import 'package:get/get.dart';
 
 Widget customListView(BuildContext context) {
   CountryController countryController = Get.find();
-
   Size size = MediaQuery.of(context).size;
+
   countryController.fetchdata();
 
   return Obx(() {
-    if (countryController.isLoading.value) {
+    if (countryController.isLoading.value || !countryController.saidbymehrzad.value) {
       return Center(
         child: CircularProgressIndicator(),
       );
-    } else {
+    } else if(countryController.countryList.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children:
+      [
+        Text('لطفا اینترنت خود را روشن کنید' , style:
+          listViewTitleStyle,),
+        TextButton(
+            onPressed : (){
+          countryController.fetchdata();
+        },
+            child: Text('تلاش مجدد'))
+        ],
+        ),
+      );
+    } else{
       return ListView.builder(
         itemBuilder: (context, index) {
           return Padding(
@@ -45,7 +61,7 @@ Widget customListView(BuildContext context) {
                             subtitle: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: AutoSizeText(
-                                'Country_id: ' +
+                                'Country id: ' +
                                     countryController
                                         .countryList[index].countryId
                                         .toString(),
