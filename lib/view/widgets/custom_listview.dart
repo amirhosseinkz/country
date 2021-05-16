@@ -12,7 +12,7 @@ Widget customListView(BuildContext context) {
   countryController.fetchdata();
 
   return Obx(() {
-    if (countryController.isLoading.value || !countryController.saidbymehrzad.value) {
+    if (countryController.isLoading.value || !countryController.isData.value) {
       return Center(
         child: CircularProgressIndicator(),
       );

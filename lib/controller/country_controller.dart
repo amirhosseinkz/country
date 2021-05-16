@@ -10,7 +10,7 @@ class CountryController extends GetxController {
   var countryList = List<CountryModel>().obs;
   var isLoading = true.obs;
   var dataBaseHelper = DatabaseHelper.instance.obs;
-  var saidbymehrzad = true.obs;
+  var isData = true.obs;
 
   Future<List<CountryModel>> getCountry() async {
 
@@ -18,7 +18,7 @@ class CountryController extends GetxController {
       'token':'NeRreatrfpEAEiNuR5RYuxOxgigp6PFX'
     };
 
-    saidbymehrzad.value = false;
+    isData.value = false;
     Uri url = Uri.parse('http://37.156.29.51:4450/api/countries');
     var response;
     try{
@@ -29,7 +29,7 @@ class CountryController extends GetxController {
 
     }catch(e){
 
-      mohammadi();
+      checkDataBase();
 
     }
 
@@ -39,14 +39,14 @@ class CountryController extends GetxController {
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       var encod = jsonEncode(jsonResponse['data']['countries']);
-      mehrzad();
-      saidbymehrzad.value = true;
+      addToDataBase();
+      isData.value = true;
       return countryModelFromJson(encod);
     }else {
 
       var db = await dataBaseHelper.value.queryAllRows();
       if (db.isNotEmpty && db != null) {
-        mohammadi();
+        checkDataBase();
 
       }
     }
@@ -89,7 +89,7 @@ class CountryController extends GetxController {
   //  }
   // }
 
-mehrzad() async {
+addToDataBase() async {
     var db = await dataBaseHelper.value.queryAllRows();
     if (db.isEmpty || db == null ) {
       countryList.forEach((element) {
@@ -103,7 +103,7 @@ mehrzad() async {
 }
 
 
-mohammadi() async {
+checkDataBase() async {
   var db = await dataBaseHelper.value.queryAllRows();
   db.forEach((element) {
     countryList.add(CountryModel(
@@ -112,7 +112,7 @@ mohammadi() async {
         name: element[DatabaseHelper.columnCountryName]));
 
   });
-  saidbymehrzad.value = true;
+  isData.value = true;
 }
 
 }
