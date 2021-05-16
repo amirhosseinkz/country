@@ -1,24 +1,22 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_appq/controller/country_controller_provider.dart';
 import 'package:flutter_appq/view/home_screen.dart';
+import 'package:provider/provider.dart';
 
-import 'package:get/get.dart';
-
-
-import 'controller/binding.dart';
-import 'controller/country_controller.dart';
 
 void main()  {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+  child: MyApp(),
+    create: (context) => CountryControllerProvider(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  CountryController countryController = Get.put(CountryController());
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      initialBinding: Binding(),
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );

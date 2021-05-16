@@ -32,6 +32,7 @@ dependencies:
   get:
   sqflite:
   auto_size_text:
+  provider:
 
 dev_dependencies:
   flutter_test:

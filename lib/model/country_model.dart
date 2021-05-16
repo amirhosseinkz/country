@@ -8,19 +8,6 @@ List<CountryModel> countryModelFromJson(String str) => List<CountryModel>.from(j
 
 String countryModelToJson(List<CountryModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-final String tableCountry = 'country';
-
-class CountryFields {
-
-  static final List<String> values = [
-    id , name , countryId
-  ];
-
-  static final String id = '_id';
-  static final String name = 'name';
-  static final String countryId = '_countryId';
-
-}
 
 
 class CountryModel {
@@ -35,16 +22,16 @@ class CountryModel {
   int countryId;
   String name;
 
-  CountryModel copy({
-    int id,
-    int countryId,
-    String name,
-}) =>
-  CountryModel(
-    id:  id ?? this.id,
-    name: name ?? this.name,
-    countryId: countryId ?? this.countryId
-  );
+//   CountryModel copy({
+//     int id,
+//     int countryId,
+//     String name,
+// }) =>
+//   CountryModel(
+//     id:  id ?? this.id,
+//     name: name ?? this.name,
+//     countryId: countryId ?? this.countryId
+//   );
 
   factory CountryModel.fromJson(Map<String, dynamic> json) => CountryModel(
     id: json["id"],
