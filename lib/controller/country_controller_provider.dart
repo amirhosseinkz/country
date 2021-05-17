@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class CountryControllerProvider extends ChangeNotifier{
 
   bool isData = true;
-  bool isLoading = false;
+  bool isLoading = true;
   var countryList = List<CountryModel>();
   DatabaseHelper dataBaseHelper = DatabaseHelper.instance;
 
@@ -70,7 +70,6 @@ class CountryControllerProvider extends ChangeNotifier{
             DatabaseHelper.columnCountryName: element.name,
             DatabaseHelper.columnCountryId: element.countryId,
           });
-          notifyListeners();
         });
       }
     }
@@ -83,7 +82,6 @@ class CountryControllerProvider extends ChangeNotifier{
             id: element[DatabaseHelper.columnId], countryId:
         element[DatabaseHelper.columnCountryId],
             name: element[DatabaseHelper.columnCountryName]));
-        notifyListeners();
       });
       isData = true;
     }
